@@ -22,7 +22,7 @@ abstract class AppDatabase: RoomDatabase() {
             if (!(::appDatabase.isInitialized)) {
                 appDatabase =
                     Room.databaseBuilder(applicationContext,
-                        appDatabase::class.java, "InclusiveListsDb")
+                        appDatabase::class.java, "InclusiveListsBlueprintDb")
                         .build()
             }
             return appDatabase
