@@ -9,12 +9,11 @@ import androidx.room.TypeConverters
 
 
 @Database(entities = [ListHeader::class], version = 1, exportSchema = false)
-
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun listDao(): ListDao
 
-    companion object {
+    /*companion object {
         @Volatile
         private lateinit var appDatabase: AppDatabase
 
@@ -28,6 +27,6 @@ abstract class AppDatabase: RoomDatabase() {
             return appDatabase
         }
 
-    }
+    }*/
 
 }
