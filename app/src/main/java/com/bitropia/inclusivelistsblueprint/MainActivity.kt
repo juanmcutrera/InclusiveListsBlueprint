@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setContent {
            // NewsStory()
-            HelloContent()
+            MainContent()
 
         }
     }
@@ -67,7 +67,7 @@ fun DefaultPreview() {
     HelloContent()
 }*/
 
-/*class HelloViewModel : ViewModel() {
+class HelloViewModel : ViewModel() {
 
     // LiveData holds state which is observed by the UI
     // (state flows down from ViewModel)
@@ -79,12 +79,12 @@ fun DefaultPreview() {
     fun onNameChange(newName: String) {
         _name.value = newName
     }
-}*/
+}
 
 
 
 @Composable
-fun HelloContent() {
+fun MainContent( ) {
     //viewModel: ListHeaderViewModel
     /*InclusiveListsTheme {
         Column(
@@ -99,7 +99,8 @@ fun HelloContent() {
         }
     }*/
 
-
+    /*val vm: HelloViewModel  by viewModels()
+    val viewModel: ListHeaderViewModel by viewModels()*/
     InclusiveListsTheme{
 
         Column(

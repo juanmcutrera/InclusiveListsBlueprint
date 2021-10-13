@@ -15,7 +15,7 @@ import javax.inject.Named
 
 @HiltViewModel
 class ListHeaderViewModel
-@Inject constructor(private val savelistheaderUseCase: SaveListHeaderUseCase) :  ViewModel()  {
+@Inject constructor(private val savelistheaderUseCase: SaveListHeaderUseCase) :  ScopedViewModel()  {
 
 
     private fun save(listheader: ListHeader) {
