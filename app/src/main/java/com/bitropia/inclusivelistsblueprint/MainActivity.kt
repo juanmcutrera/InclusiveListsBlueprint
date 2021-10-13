@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: ListHeaderViewModel by viewModels()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -69,7 +67,7 @@ fun DefaultPreview() {
     HelloContent()
 }*/
 
-class HelloViewModel : ViewModel() {
+/*class HelloViewModel : ViewModel() {
 
     // LiveData holds state which is observed by the UI
     // (state flows down from ViewModel)
@@ -81,12 +79,13 @@ class HelloViewModel : ViewModel() {
     fun onNameChange(newName: String) {
         _name.value = newName
     }
-}
+}*/
 
 
 
 @Composable
 fun HelloContent() {
+    //viewModel: ListHeaderViewModel
     /*InclusiveListsTheme {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
