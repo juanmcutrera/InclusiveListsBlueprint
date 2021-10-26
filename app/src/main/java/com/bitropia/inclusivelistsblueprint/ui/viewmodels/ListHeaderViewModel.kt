@@ -18,7 +18,7 @@ class ListHeaderViewModel
 @Inject constructor(private val savelistheaderUseCase: SaveListHeaderUseCase) :  ScopedViewModel()  {
 
 
-    private fun save(listheader: ListHeader) {
+     fun save(listheader: ListHeader) {
         viewModelScope.launch {
             savelistheaderUseCase.invoke(listheader)
         }
