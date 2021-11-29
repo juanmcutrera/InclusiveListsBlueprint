@@ -26,6 +26,7 @@ import com.bitropia.inclusivelistsblueprint.theme.textField
 import com.bitropia.inclusivelistsblueprint.ui.viewmodels.ListHeaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.LiveData
@@ -50,8 +51,8 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
            // NewsStory()
-
-            MainContent(model)
+            //model
+            MainContent()
 
         }
     }
@@ -95,8 +96,8 @@ class HelloViewModel : ViewModel() {
 
 
 @Composable
-fun MainContent( model: ListHeaderViewModel) {
-
+fun MainContent() {
+// model: ListHeaderViewModel
     //model: ListHeaderViewModel
     //viewModel: ListHeaderViewModel
     /*InclusiveListsTheme {
@@ -139,7 +140,8 @@ fun MainContent( model: ListHeaderViewModel) {
 
             )*/
             //val textState = remember { mutableStateOf(TextFieldValue()) }
-            val textState = remember { mutableStateOf("") }
+            //val textState = remember { mutableStateOf("") }
+            val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
 
             /*val header: ListHeader = ListHeader(0,"texto")
 
@@ -147,8 +149,10 @@ fun MainContent( model: ListHeaderViewModel) {
 
             OutlinedTextField(
 
-                value = textState.value,
-                onValueChange = { textState.value = it },
+                /*value = textState.value,
+                onValueChange = { textState.value = it },*/
+                value = value,
+                onValueChange = onValueChange,
                 label = { Text("Description") },
                 textStyle = TextStyle(color = MaterialTheme.colors.textField,
                     fontWeight = FontWeight.Normal),
