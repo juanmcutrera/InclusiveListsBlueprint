@@ -1,11 +1,28 @@
 package com.bitropia.inclusivelistsblueprint.data.db
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class ListHeader(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    val description: String
+@Entity(tableName = "listheader")
+class ListHeader
+{
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "id")
+    var Id: Int = 0
 
-)
+    @ColumnInfo(name = "description")
+    var Description: String = ""
+
+    constructor() {}
+
+    constructor(id: Int,  description: String )
+    {
+        this.Id = id
+        this.Description = description
+
+    }
+}
+

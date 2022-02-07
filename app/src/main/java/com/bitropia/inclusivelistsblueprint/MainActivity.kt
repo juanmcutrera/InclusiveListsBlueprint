@@ -1,5 +1,6 @@
 package com.bitropia.inclusivelistsblueprint
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -8,9 +9,6 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,52 +23,32 @@ import com.bitropia.inclusivelistsblueprint.theme.InclusiveListsTheme
 import com.bitropia.inclusivelistsblueprint.theme.textField
 import com.bitropia.inclusivelistsblueprint.ui.viewmodels.ListHeaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.viewModels
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bitropia.inclusivelistsblueprint.domain.entities.ListHeader
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+import com.bitropia.inclusivelistsblueprint.domain.usecases.SaveListHeaderUseCase
 
-
-
-    //private val viewModel: ListHeaderViewModel by viewModels()
-    //public val listheaderViewModel by viewModels<ListHeaderViewModel>()
-
-    public val model: ListHeaderViewModel by viewModels()
+@AndroidEntryPoint
+class MainActivity @Inject constructor() : AppCompatActivity() {
+    @Inject
+    lateinit var saveListHeader : SaveListHeaderUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val a = ""
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         setContent {
-           // NewsStory()
-            //model
-            MainContent()
+            MainContent(saveListHeader)
 
         }
     }
 }
 
 
-@Composable
-fun NewsStory() {
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-
-
-        Text("A day in Shark Fin Cove",color = Color.White)
-        Text("Davenport, California",color = Color.White)
-        Text("December 2018",color = Color.Yellow)
-    }
-}
 /*
 @Preview
 @Composable
@@ -79,90 +57,58 @@ fun DefaultPreview() {
     HelloContent()
 }*/
 
-class HelloViewModel : ViewModel() {
-
-    // LiveData holds state which is observed by the UI
-    // (state flows down from ViewModel)
-    private val _name = MutableLiveData("")
-    val name: LiveData<String> = _name
-
-    // onNameChange is an event we're defining that the UI can invoke
-    // (events flow up from UI)
-    fun onNameChange(newName: String) {
-        _name.value = newName
-    }
-}
-
 
 
 @Composable
-fun MainContent() {
-// model: ListHeaderViewModel
-    //model: ListHeaderViewModel
-    //viewModel: ListHeaderViewModel
-    /*InclusiveListsTheme {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            OutlinedTextField(
-                value = "",
-                onValueChange = { },
-                label = { Text("Name") }
-            )
-        }
-    }*/
+fun MainContent(
 
-    /*val vm: HelloViewModel  by viewModels()
-    val viewModel: ListHeaderViewModel by viewModels()*/
+
+    saveListHeader:  SaveListHeaderUseCase,
+    viewModel: ListHeaderViewModel =  ListHeaderViewModel(saveListHeader)
+
+) {
+
+    MainScreen(
+        viewModel = viewModel
+    )
+
+
+}
+
+@Composable
+fun MainScreen(
+    viewModel: ListHeaderViewModel
+) {
+
+   // val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
+    var headerdescription by rememberSaveable { mutableStateOf("") }
+
+    val onheaderdescriptionTextChange = { text : String ->
+        headerdescription = text
+    }
+
+
     InclusiveListsTheme{
 
         Column(
 
-            //modifier = Modifier.padding(16.dp)
-
-            //horizontalAlignment = Alignment.CenterHorizontally,
-            //modifier = Modifier.fillMaxWidth()
             Modifier
                 .fillMaxSize()
                 .padding(32.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         )
         {
-           /* Text(
-                text = "Hello!",
-                textAlign = TextAlign.Right,
-                //modifier = Modifier.padding(bottom = 8.dp),
-                //style = MaterialTheme.typography.h5,
-                color = Color.White,
-
-
-
-            )*/
-            //val textState = remember { mutableStateOf(TextFieldValue()) }
-            //val textState = remember { mutableStateOf("") }
-            val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
-
-            /*val header: ListHeader = ListHeader(0,"texto")
-
-            model.save(header)*/
 
             OutlinedTextField(
 
-                /*value = textState.value,
-                onValueChange = { textState.value = it },*/
-                value = value,
-                onValueChange = onValueChange,
+
+                value = headerdescription,
+                onValueChange = onheaderdescriptionTextChange,
                 label = { Text("Description") },
                 textStyle = TextStyle(color = MaterialTheme.colors.textField,
                     fontWeight = FontWeight.Normal),
-               /* colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = MaterialTheme.colors.secondary,
-                    unfocusedBorderColor = MaterialTheme.colors.secondary,
-                    focusedLabelColor = MaterialTheme.colors.secondary,
-                    cursorColor = MaterialTheme.colors.primaryVariant
-                ),*/
-            )
+
+                )
             val context = LocalContext.current
 
             Button(
@@ -171,23 +117,24 @@ fun MainContent() {
 
                     Toast.makeText(
                         context,
-                        "Showing toast....",
+                        "Guardando.... " + headerdescription,
+
                         Toast.LENGTH_SHORT
                     ).show()
+
+                   viewModel.saveListHeader(ListHeader(0,
+                        headerdescription))
                 },
                 modifier = Modifier.padding(all = Dp(10F)),
                 enabled = true,
                 shape = MaterialTheme.shapes.medium,
             )
-            // below line is use to
-            // add text on our button
+
             {
                 Text(text = "Guardar", color = Color.White)
             }
         }
     }
-
-
-
 }
+
 

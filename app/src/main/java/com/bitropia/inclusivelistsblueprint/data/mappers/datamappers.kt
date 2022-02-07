@@ -5,13 +5,11 @@ import com.bitropia.inclusivelistsblueprint.data.db.ListHeader as DomainListHead
 
 
 fun ListHeader.toRoomListHeader(): DomainListHeader =
-    DomainListHeader(id = 0,
-        description = ""
-
-
+    (
+        DomainListHeader(this.Id, this.Description )
     )
 
 fun DomainListHeader.toDomainListHeader(): ListHeader = ListHeader(
-    id,
-    description
+    Id,
+    Description
 )

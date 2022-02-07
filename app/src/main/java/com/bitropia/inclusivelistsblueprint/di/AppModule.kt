@@ -25,7 +25,7 @@ class AppModule {
     fun databaseProvider(app: Application) = Room.databaseBuilder(
         app,
         AppDatabase::class.java,
-        "InclusiveListsBlueprintDb"
+        "InclusiveListsBlueprint"
     ).build()
 
 
