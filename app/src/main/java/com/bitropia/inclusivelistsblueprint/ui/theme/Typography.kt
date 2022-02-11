@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bitropia.inclusivelistsblueprint.theme
+package com.bitropia.inclusivelistsblueprint.ui.theme
 
 
 import androidx.compose.material.Typography
@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.bitropia.inclusivelistsblueprint.R
+
 
 val MontserratFontFamily = FontFamily(
     listOf(

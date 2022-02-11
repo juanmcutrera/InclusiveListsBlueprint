@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bitropia.inclusivelistsblueprint.theme
+package com.bitropia.inclusivelistsblueprint.ui.theme
 
 
 import androidx.compose.foundation.shape.RoundedCornerShape

@@ -19,8 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-import com.bitropia.inclusivelistsblueprint.theme.InclusiveListsTheme
-import com.bitropia.inclusivelistsblueprint.theme.textField
+import com.bitropia.inclusivelistsblueprint.ui.theme.InclusiveListsTheme
+import com.bitropia.inclusivelistsblueprint.ui.theme.textField
 import com.bitropia.inclusivelistsblueprint.ui.viewmodels.ListHeaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.runtime.*
